@@ -1,0 +1,560 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>numpy的简单使用和入门 | Suki&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="python,机器学习,numpy">
+    <meta name="description" content="numpy中数组的建立123import numpy as nparray = np.array([5,7,3,4], dtype=np.int32)  在建立数组时，dtype可以选择int、int32、float、float32等 numpy还可以创建矩阵，同样也是通过array来创建的。同时在创建时可以创建全0、全1、全空数组 12345678910111213141516171819202">
+<meta name="keywords" content="python,机器学习,numpy">
+<meta property="og:type" content="article">
+<meta property="og:title" content="numpy的简单使用和入门">
+<meta property="og:url" content="https://sukioosuke.github.io/2019/07/22/python-numpy/index.html">
+<meta property="og:site_name" content="Suki&#39;s Blog">
+<meta property="og:description" content="numpy中数组的建立123import numpy as nparray = np.array([5,7,3,4], dtype=np.int32)  在建立数组时，dtype可以选择int、int32、float、float32等 numpy还可以创建矩阵，同样也是通过array来创建的。同时在创建时可以创建全0、全1、全空数组 12345678910111213141516171819202">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-25T06:32:39.577Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="numpy的简单使用和入门">
+<meta name="twitter:description" content="numpy中数组的建立123import numpy as nparray = np.array([5,7,3,4], dtype=np.int32)  在建立数组时，dtype可以选择int、int32、float、float32等 numpy还可以创建矩阵，同样也是通过array来创建的。同时在创建时可以创建全0、全1、全空数组 12345678910111213141516171819202">
+    
+        <link rel="alternate" type="application/atom+xml" title="Suki&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://github.com/sukioosuke" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Suki</h5>
+          <a href="mailto:497326406@qq.com" title="497326406@qq.com" class="mail">497326406@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                博客
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/sukioosuke" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2028680845" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                微博
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-link"></i>
+                测试
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">numpy的简单使用和入门</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">numpy的简单使用和入门</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-22T07:16:11.000Z" itemprop="datePublished" class="page-time">
+  2019-07-22
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/python/">python</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#numpy中数组的建立"><span class="post-toc-number">1.</span> <span class="post-toc-text">numpy中数组的建立</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#矩阵中的运算"><span class="post-toc-number">2.</span> <span class="post-toc-text">矩阵中的运算</span></a></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#矩阵的合并与分割"><span class="post-toc-number">3.</span> <span class="post-toc-text">矩阵的合并与分割</span></a></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-python-numpy"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">numpy的简单使用和入门</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-22 15:16:11" datetime="2019-07-22T07:16:11.000Z"  itemprop="datePublished">2019-07-22</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/python/">python</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <h3 id="numpy中数组的建立"><a href="#numpy中数组的建立" class="headerlink" title="numpy中数组的建立"></a>numpy中数组的建立</h3><figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> numpy <span class="keyword">as</span> np</span><br><span class="line"></span><br><span class="line">array = np.array([<span class="number">5</span>,<span class="number">7</span>,<span class="number">3</span>,<span class="number">4</span>], dtype=np.int32)</span><br></pre></td></tr></table></figure>
+
+<p>在建立数组时，dtype可以选择int、int32、float、float32等</p>
+<p>numpy还可以创建矩阵，同样也是通过array来创建的。同时在创建时可以创建全0、全1、全空数组</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br></pre></td><td class="code"><pre><span class="line">matrix = np.array([[<span class="number">1</span>, <span class="number">3</span>, <span class="number">5</span>],[<span class="number">2</span>, <span class="number">4</span>, <span class="number">6</span>]])</span><br><span class="line">print(matrix)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">[[ 1 3 5]</span></span><br><span class="line"><span class="string"> [ 2 4 6]]</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">matrix = np.zeros((<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">array([[ 0.,  0.,  0.,  0.],</span></span><br><span class="line"><span class="string">       [ 0.,  0.,  0.,  0.],</span></span><br><span class="line"><span class="string">       [ 0.,  0.,  0.,  0.]])</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">matrix = np.ones((<span class="number">3</span>,<span class="number">4</span>),dtype = np.int)</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">array([[1, 1, 1, 1],</span></span><br><span class="line"><span class="string">       [1, 1, 1, 1],</span></span><br><span class="line"><span class="string">       [1, 1, 1, 1]])</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">a = np.empty((<span class="number">3</span>,<span class="number">4</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">array([[  0.00000000e+000,   4.94065646e-324,   9.88131292e-324,</span></span><br><span class="line"><span class="string">          1.48219694e-323],</span></span><br><span class="line"><span class="string">       [  1.97626258e-323,   2.47032823e-323,   2.96439388e-323,</span></span><br><span class="line"><span class="string">          3.45845952e-323],</span></span><br><span class="line"><span class="string">       [  3.95252517e-323,   4.44659081e-323,   4.94065646e-323,</span></span><br><span class="line"><span class="string">          5.43472210e-323]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>在构建全空数组时，可以看到数组元素均为接近于0的极小数。</p>
+<p>可以通过arrange、linspace和random可以创建连续数组、线段型数组和随机数组：</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">array = np.arange(<span class="number">10</span>,<span class="number">20</span>,<span class="number">2</span>) <span class="comment"># 10-19 的数据，2步长</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">array([10, 12, 14, 16, 18])</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">array = np.linspace(<span class="number">1</span>,<span class="number">10</span>,<span class="number">20</span>)    <span class="comment"># 开始端1，结束端10，且分割成20个数据，生成线段</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">array([  1.        ,   1.47368421,   1.94736842,   2.42105263,</span></span><br><span class="line"><span class="string">         2.89473684,   3.36842105,   3.84210526,   4.31578947,</span></span><br><span class="line"><span class="string">         4.78947368,   5.26315789,   5.73684211,   6.21052632,</span></span><br><span class="line"><span class="string">         6.68421053,   7.15789474,   7.63157895,   8.10526316,</span></span><br><span class="line"><span class="string">         8.57894737,   9.05263158,   9.52631579,  10.        ])</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">array = np.random.random((<span class="number">2</span>,<span class="number">4</span>))</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">array([[ 0.94692159,  0.20821798,  0.35339414,  0.2805278 ],</span></span><br><span class="line"><span class="string">      [ 0.04836775,  0.04023552,  0.44091941,  0.21665268]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>通过reshape可以改变矩阵的行列数</p>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">a = np.arange(<span class="number">12</span>).reshape((<span class="number">3</span>,<span class="number">4</span>))    <span class="comment"># 3行4列，0到11</span></span><br><span class="line"></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">array([[ 0,  1,  2,  3],</span></span><br><span class="line"><span class="string">       [ 4,  5,  6,  7],</span></span><br><span class="line"><span class="string">       [ 8,  9, 10, 11]])</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="矩阵中的运算"><a href="#矩阵中的运算" class="headerlink" title="矩阵中的运算"></a>矩阵中的运算</h3><p>numpy构建出的矩阵可以直接使用通用运算符计算加减乘除等，需要注意的是：</p>
+<blockquote>
+<ul>
+<li>矩阵元素平方使用的是**来表示</li>
+<li>矩阵乘法a×b为np.dot(a, b)，或者a.dot(b)</li>
+<li>矩阵平均值和中位数的函数为mean()和median()</li>
+<li>矩阵累加值可以使用cumsum()来计算</li>
+<li>矩阵累差值可以使用diff()来计算</li>
+<li>nonezero()函数：将所有非零元素的行与列坐标分割开，重构成两个分别关于行和列的矩阵。</li>
+<li>sort()函数可以对矩阵中每行元排序</li>
+<li>矩阵的转置可以使用transpose()或者T函数实现，在转置时，应注意单纯的array是无法转置的（如：[1,1,1]），需将其行向量才能转置</li>
+<li>flatten()函数可以实现矩阵的扁平化</li>
+</ul>
+</blockquote>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">A = np.array([<span class="number">1</span>,<span class="number">1</span>,<span class="number">1</span>])</span><br><span class="line"></span><br><span class="line">print(A.T)</span><br><span class="line"><span class="string">"[1,1,1]"</span></span><br><span class="line"></span><br><span class="line">print(A[np.newaxis,:])</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">[[1 1 1]]</span></span><br><span class="line"><span class="string">"""</span></span><br><span class="line"></span><br><span class="line">print(A[:,np.newaxis])</span><br><span class="line"><span class="string">"""</span></span><br><span class="line"><span class="string">[[1]</span></span><br><span class="line"><span class="string">[1]</span></span><br><span class="line"><span class="string">[1]]</span></span><br><span class="line"><span class="string">"""</span></span><br></pre></td></tr></table></figure>
+
+<p>numpy可以对索引进行一系列的运算<br>argmin()、argmax()分别对应着求矩阵中最小元素和最大元素的索引。<br>在Python的 list 中，我们可以利用:对一定范围内的元素进行切片操作，在Numpy中我们依然可以使用类似的方法。如：A[1, 1:3]</p>
+<p>clip(Array,Array_min,Array_max)函数可以使矩阵转换为在[min, max]范围内的矩阵，若矩阵中有大于max或小于min的元素值，则对应转换为max或min。</p>
+<h3 id="矩阵的合并与分割"><a href="#矩阵的合并与分割" class="headerlink" title="矩阵的合并与分割"></a>矩阵的合并与分割</h3><p>合并：横向合并np.vstack(),纵向合并np.hstack()<br>np.concatenate()支持多个矩阵的合并，并且可以使用axis参数指定合并的维度</p>
+<p>分割：</p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-07-25T06:32:39.577Z" itemprop="dateUpdated">2019-07-25 14:32:39</time>
+</span><br>
+
+
+        
+        如有疑问可邮件至sunkai0408@126.com详细交流～
+        
+    </div>
+    
+    <footer>
+        <a href="https://sukioosuke.github.io">
+            <img src="/img/avatar.jpg" alt="Suki">
+            Suki
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/numpy/">numpy</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/python/">python</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/机器学习/">机器学习</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://sukioosuke.github.io/2019/07/22/python-numpy/&title=《numpy的简单使用和入门》 — Suki's Blog&pic=https://sukioosuke.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://sukioosuke.github.io/2019/07/22/python-numpy/&title=《numpy的简单使用和入门》 — Suki's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://sukioosuke.github.io/2019/07/22/python-numpy/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《numpy的简单使用和入门》 — Suki's Blog&url=https://sukioosuke.github.io/2019/07/22/python-numpy/&via=https://sukioosuke.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://sukioosuke.github.io/2019/07/22/python-numpy/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/07/25/statistics-sample-size/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">样本量大小的确定</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/07/20/statistics-generalization-abaility/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">模型泛化能力</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢支持~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Suki &copy; 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://sukioosuke.github.io/2019/07/22/python-numpy/&title=《numpy的简单使用和入门》 — Suki's Blog&pic=https://sukioosuke.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://sukioosuke.github.io/2019/07/22/python-numpy/&title=《numpy的简单使用和入门》 — Suki's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://sukioosuke.github.io/2019/07/22/python-numpy/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《numpy的简单使用和入门》 — Suki's Blog&url=https://sukioosuke.github.io/2019/07/22/python-numpy/&via=https://sukioosuke.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://sukioosuke.github.io/2019/07/22/python-numpy/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://sukioosuke.github.io/2019/07/22/python-numpy/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '我怀疑你在搞黄色';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '但是我没有证据';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>

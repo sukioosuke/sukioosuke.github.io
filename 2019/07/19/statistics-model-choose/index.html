@@ -1,0 +1,554 @@
+<!DOCTYPE html>
+<html>
+<head><meta name="generator" content="Hexo 3.9.0">
+    
+
+    
+
+    
+
+
+
+    <meta charset="utf-8">
+    
+    
+    
+    
+    <title>模型选择 | Suki&#39;s Blog</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    
+    <meta name="theme-color" content="#3F51B5">
+    
+    
+    <meta name="keywords" content="统计学,模型,模型选择">
+    <meta name="description" content="模型选择有两种常用方法：正则化和交叉验证 正则化正则化是结构风险最小化策略的实现。在经验风险上加一个正则项或者罚项，一般是模型复杂度的单调递增函数，模型越复杂，则正则化项的值就越大。正则化一般具有如下形式：$$ \min_{f\in\mathcal{F}} \frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i))+\lambda J(f) $$其中，第1项是经验风险，第2项是正">
+<meta name="keywords" content="统计学,模型,模型选择">
+<meta property="og:type" content="article">
+<meta property="og:title" content="模型选择">
+<meta property="og:url" content="https://sukioosuke.github.io/2019/07/19/statistics-model-choose/index.html">
+<meta property="og:site_name" content="Suki&#39;s Blog">
+<meta property="og:description" content="模型选择有两种常用方法：正则化和交叉验证 正则化正则化是结构风险最小化策略的实现。在经验风险上加一个正则项或者罚项，一般是模型复杂度的单调递增函数，模型越复杂，则正则化项的值就越大。正则化一般具有如下形式：$$ \min_{f\in\mathcal{F}} \frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i))+\lambda J(f) $$其中，第1项是经验风险，第2项是正">
+<meta property="og:locale" content="zh-CN">
+<meta property="og:updated_time" content="2019-07-22T07:15:50.527Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="模型选择">
+<meta name="twitter:description" content="模型选择有两种常用方法：正则化和交叉验证 正则化正则化是结构风险最小化策略的实现。在经验风险上加一个正则项或者罚项，一般是模型复杂度的单调递增函数，模型越复杂，则正则化项的值就越大。正则化一般具有如下形式：$$ \min_{f\in\mathcal{F}} \frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i))+\lambda J(f) $$其中，第1项是经验风险，第2项是正">
+    
+        <link rel="alternate" type="application/atom+xml" title="Suki&#39;s Blog" href="/atom.xml">
+    
+    <link rel="shortcut icon" href="/favicon.ico">
+    <link rel="stylesheet" href="//unpkg.com/hexo-theme-material-indigo@latest/css/style.css">
+    <script>window.lazyScripts=[]</script>
+
+    <!-- custom head -->
+    
+
+</head>
+
+<body>
+    <div id="loading" class="active"></div>
+
+    <aside id="menu" class="hide" >
+  <div class="inner flex-row-vertical">
+    <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menu-off">
+        <i class="icon icon-lg icon-close"></i>
+    </a>
+    <div class="brand-wrap" style="background-image:url(/img/brand.jpg)">
+      <div class="brand">
+        <a href="https://github.com/sukioosuke" class="avatar waves-effect waves-circle waves-light">
+          <img src="/img/avatar.jpg">
+        </a>
+        <hgroup class="introduce">
+          <h5 class="nickname">Suki</h5>
+          <a href="mailto:497326406@qq.com" title="497326406@qq.com" class="mail">497326406@qq.com</a>
+        </hgroup>
+      </div>
+    </div>
+    <div class="scroll-wrap flex-col">
+      <ul class="nav">
+        
+            <li class="waves-block waves-effect">
+              <a href="/"  >
+                <i class="icon icon-lg icon-home"></i>
+                主页
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/archives"  >
+                <i class="icon icon-lg icon-archives"></i>
+                博客
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/tags"  >
+                <i class="icon icon-lg icon-tags"></i>
+                标签
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/categories"  >
+                <i class="icon icon-lg icon-th-list"></i>
+                分类
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="https://github.com/sukioosuke" target="_blank" >
+                <i class="icon icon-lg icon-github"></i>
+                Github
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="http://www.weibo.com/u/2028680845" target="_blank" >
+                <i class="icon icon-lg icon-weibo"></i>
+                微博
+              </a>
+            </li>
+        
+            <li class="waves-block waves-effect">
+              <a href="/custom"  >
+                <i class="icon icon-lg icon-link"></i>
+                测试
+              </a>
+            </li>
+        
+      </ul>
+    </div>
+  </div>
+</aside>
+
+    <main id="main">
+        <header class="top-header" id="header">
+    <div class="flex-row">
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light on" id="menu-toggle">
+          <i class="icon icon-lg icon-navicon"></i>
+        </a>
+        <div class="flex-col header-title ellipsis">模型选择</div>
+        
+        <div class="search-wrap" id="search-wrap">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="back">
+                <i class="icon icon-lg icon-chevron-left"></i>
+            </a>
+            <input type="text" id="key" class="search-input" autocomplete="off" placeholder="输入感兴趣的关键字">
+            <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="search">
+                <i class="icon icon-lg icon-search"></i>
+            </a>
+        </div>
+        
+        
+        <a href="javascript:;" class="header-icon waves-effect waves-circle waves-light" id="menuShare">
+            <i class="icon icon-lg icon-share-alt"></i>
+        </a>
+        
+    </div>
+</header>
+<header class="content-header post-header">
+
+    <div class="container fade-scale">
+        <h1 class="title">模型选择</h1>
+        <h5 class="subtitle">
+            
+                <time datetime="2019-07-18T16:04:24.000Z" itemprop="datePublished" class="page-time">
+  2019-07-19
+</time>
+
+
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/统计学/">统计学</a></li></ul>
+
+            
+        </h5>
+    </div>
+
+    
+
+
+</header>
+
+
+<div class="container body-wrap">
+    
+    <aside class="post-widget">
+        <nav class="post-toc-wrap post-toc-shrink" id="post-toc">
+            <h4>TOC</h4>
+            <ol class="post-toc"><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#正则化"><span class="post-toc-number">1.</span> <span class="post-toc-text">正则化</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#例1-L2正则化项"><span class="post-toc-number">1.1.</span> <span class="post-toc-text">例1,L2正则化项</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#例2，L0、L1正则化项"><span class="post-toc-number">1.2.</span> <span class="post-toc-text">例2，L0、L1正则化项</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#L0正则化"><span class="post-toc-number">1.2.1.</span> <span class="post-toc-text">L0正则化</span></a></li><li class="post-toc-item post-toc-level-5"><a class="post-toc-link" href="#L1正则化"><span class="post-toc-number">1.2.2.</span> <span class="post-toc-text">L1正则化</span></a></li></ol></li></ol></li><li class="post-toc-item post-toc-level-3"><a class="post-toc-link" href="#交叉验证"><span class="post-toc-number">2.</span> <span class="post-toc-text">交叉验证</span></a><ol class="post-toc-child"><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#简单交叉验证"><span class="post-toc-number">2.1.</span> <span class="post-toc-text">简单交叉验证</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#S折交叉验证"><span class="post-toc-number">2.2.</span> <span class="post-toc-text">S折交叉验证</span></a></li><li class="post-toc-item post-toc-level-4"><a class="post-toc-link" href="#留一交叉验证"><span class="post-toc-number">2.3.</span> <span class="post-toc-text">留一交叉验证</span></a></li></ol></li></ol>
+        </nav>
+    </aside>
+
+
+<article id="post-statistics-model-choose"
+  class="post-article article-type-post fade" itemprop="blogPost">
+
+    <div class="post-card">
+        <h1 class="post-card-title">模型选择</h1>
+        <div class="post-meta">
+            <time class="post-time" title="2019-07-19 00:04:24" datetime="2019-07-18T16:04:24.000Z"  itemprop="datePublished">2019-07-19</time>
+
+            
+	<ul class="article-category-list"><li class="article-category-list-item"><a class="article-category-list-link" href="/categories/统计学/">统计学</a></li></ul>
+
+
+
+            
+<span id="busuanzi_container_page_pv" title="文章总阅读量" style='display:none'>
+    <i class="icon icon-eye icon-pr"></i><span id="busuanzi_value_page_pv"></span>
+</span>
+
+
+        </div>
+        <div class="post-content" id="post-content" itemprop="postContent">
+            <p>模型选择有两种常用方法：<strong>正则化和交叉验证</strong></p>
+<h3 id="正则化"><a href="#正则化" class="headerlink" title="正则化"></a>正则化</h3><p>正则化是结构风险最小化策略的实现。在经验风险上加一个正则项或者罚项，一般是模型复杂度的单调递增函数，模型越复杂，则正则化项的值就越大。<br>正则化一般具有如下形式：<br>$$ \min_{f\in\mathcal{F}} \frac{1}{N}\sum_{i=1}^{N}L(y_i,f(x_i))+\lambda J(f) $$<br>其中，第1项是经验风险，第2项是正则化项。$\lambda \ge 0$为调节两者比重的系数。</p>
+<p>正则化符合奥卡姆剃刀原理，在所有可选择的模型中，能够很好的解释已知数据并且简单的才是最好的模型。</p>
+<h4 id="例1-L2正则化项"><a href="#例1-L2正则化项" class="headerlink" title="例1,L2正则化项"></a>例1,L2正则化项</h4><p>回归问题中，损失函数是平方损失，正则化项可以是参数向量的$L_2$范数<br>$$ L(w)=\frac{1}{N}\sum_{i=1}^N(f(x_i;w)-y_i)^2+\frac{\lambda}{2}{\lVert w\rVert}^2 $$<br>这里$\lVert w \rVert$表示参数向量w的$L_2$范数，即<br>$$ {\lVert x \rVert}<em>{2}=\sqrt{\sum</em>{i=1}^{N}{x_i^2}} $$<br>当回归模型中的多项式项数很多时，$L_2$范数的值会收到$w_i$的影响，其中i越小，其对应的权重越重要，即经过正则化学习，高次项前的系数会变得很小，最后的曲线类似一条直线，这就是让模型变成了一个简单的模型。（具体推导可详见*[6]一文搞懂深度学习正则化的L2范数*）</p>
+<blockquote>
+<ul>
+<li>正则化让模型根据训练数据中常见的模式来学习相对简单的模型，无正则化的模型用大参数学习大噪声。</li>
+<li>L2正则化通过权重衰减，保证了模型的简单，提高了泛化能力。</li>
+</ul>
+</blockquote>
+<h4 id="例2，L0、L1正则化项"><a href="#例2，L0、L1正则化项" class="headerlink" title="例2，L0、L1正则化项"></a>例2，L0、L1正则化项</h4><p>当使用L0、L1正则化项时，对模型的影响是让模型的影响因子变得稀疏，进行特征自动选择。</p>
+<h5 id="L0正则化"><a href="#L0正则化" class="headerlink" title="L0正则化"></a>L0正则化</h5><p> L0范数指的是向量中非零元素的个数，L0正则化就是限制非零元素的个数在一定的范围，这很明显会带来稀疏。一般而言，用L0范数实现稀疏是一个NP-hard问题，因此人们一般使用L1正则化来对模型进行稀疏约束。</p>
+<h5 id="L1正则化"><a href="#L1正则化" class="headerlink" title="L1正则化"></a>L1正则化</h5><p>L1范数是计算向量中每个元素绝对值的和,可以看出，L1范数让w向0靠近，从而对于小权重能很快的减小，对大权重减小较慢，从而使模型的权重集中在高重要度的特征上。使得最终权重w变得稀疏。<br>$$ {\lVert x\rVert}<em>1 = \sum</em>{i=1}^N |x_i| $$</p>
+<h3 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h3><p>另一种常用的模型选择方法是交叉验证。<br>在数据集充沛的前提下，将数据集简单的分为三部分，分别为训练集、验证集和测试集。训练集用来训练模型，验证集用于模型的选择，而测试集用于最终对学习方法的评估。但往往在实际应用中数据并不充足，为了选择好的模型，反复的使用数据，把给定的数据进行切分，将切分的数据集组合为训练集和测试集，在此基础上反复进行训练测试以及模型选择，这就是交叉验证。</p>
+<h4 id="简单交叉验证"><a href="#简单交叉验证" class="headerlink" title="简单交叉验证"></a>简单交叉验证</h4><ol>
+<li>随机的将已给数据分成两部分，一部分作为训练集，一部分作为测试集</li>
+<li>用训练集在各种条件下（如不同的参数个数等）训练模型，从而得到不同的模型</li>
+<li>在测试集上评价各个模型的测试误差，选取测试误差最小的模型</li>
+</ol>
+<h4 id="S折交叉验证"><a href="#S折交叉验证" class="headerlink" title="S折交叉验证"></a>S折交叉验证</h4><p>S折交叉验证是目前应用最多的方法。</p>
+<ol>
+<li>随机将已给数据切分为S个互不相交的大小相同的子集</li>
+<li>利用S-1个子集的数据训练模型，利用余下的子集测试模型</li>
+<li>对该过程可能的S种选择重复进行，最后选出S次评价中平均测试误差最小的模型</li>
+</ol>
+<h4 id="留一交叉验证"><a href="#留一交叉验证" class="headerlink" title="留一交叉验证"></a>留一交叉验证</h4><p>留一交叉验证是S折交叉验证的特殊情况，这里S=N，N是给定数据集的数据个数。</p>
+<p>参考文献：<br>[1] 从高斯消元法到矩阵乘法 <a href="https://www.matongxue.com/madocs/755.html" target="_blank" rel="noopener">https://www.matongxue.com/madocs/755.html</a><br>[2] 如何理解矩阵乘法？ <a href="https://www.matongxue.com/madocs/555.html" target="_blank" rel="noopener">https://www.matongxue.com/madocs/555.html</a><br>[3] 如何理解相似矩阵？ <a href="https://www.matongxue.com/madocs/491.html" target="_blank" rel="noopener">https://www.matongxue.com/madocs/491.html</a><br>[4] 如何理解矩阵特征值？ <a href="https://www.zhihu.com/question/21874816" target="_blank" rel="noopener">https://www.zhihu.com/question/21874816</a><br>[5] L0、L1、L2范数在机器学习中的应用 <a href="https://www.jianshu.com/p/4bad38fe07e6" target="_blank" rel="noopener">https://www.jianshu.com/p/4bad38fe07e6</a><br>[6] 一文搞懂深度学习正则化的L2范数 <a href="https://blog.csdn.net/u010725283/article/details/79212762" target="_blank" rel="noopener">https://blog.csdn.net/u010725283/article/details/79212762</a><br>[7] 阵与伴随矩阵的关系 <a href="https://wenku.baidu.com/view/85d3506f77c66137ee06eff9aef8941ea76e4bd1.html" target="_blank" rel="noopener">https://wenku.baidu.com/view/85d3506f77c66137ee06eff9aef8941ea76e4bd1.html</a></p>
+
+        </div>
+
+        <blockquote class="post-copyright">
+    
+    <div class="content">
+        
+<span class="post-time">
+    最后更新时间：<time datetime="2019-07-22T07:15:50.527Z" itemprop="dateUpdated">2019-07-22 15:15:50</time>
+</span><br>
+
+
+        
+        如有疑问可邮件至sunkai0408@126.com详细交流～
+        
+    </div>
+    
+    <footer>
+        <a href="https://sukioosuke.github.io">
+            <img src="/img/avatar.jpg" alt="Suki">
+            Suki
+        </a>
+    </footer>
+</blockquote>
+
+        
+<div class="page-reward">
+    <a id="rewardBtn" href="javascript:;" class="page-reward-btn waves-effect waves-circle waves-light">赏</a>
+</div>
+
+
+
+        <div class="post-footer">
+            
+	<ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模型/">模型</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/模型选择/">模型选择</a></li><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/统计学/">统计学</a></li></ul>
+
+
+            
+<div class="page-share-wrap">
+    
+
+<div class="page-share" id="pageShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://sukioosuke.github.io/2019/07/19/statistics-model-choose/&title=《模型选择》 — Suki's Blog&pic=https://sukioosuke.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://sukioosuke.github.io/2019/07/19/statistics-model-choose/&title=《模型选择》 — Suki's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://sukioosuke.github.io/2019/07/19/statistics-model-choose/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《模型选择》 — Suki's Blog&url=https://sukioosuke.github.io/2019/07/19/statistics-model-choose/&via=https://sukioosuke.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://sukioosuke.github.io/2019/07/19/statistics-model-choose/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+
+    <a href="javascript:;" id="shareFab" class="page-share-fab waves-effect waves-circle">
+        <i class="icon icon-share-alt icon-lg"></i>
+    </a>
+</div>
+
+
+
+        </div>
+    </div>
+
+    
+<nav class="post-nav flex-row flex-justify-between">
+  
+    <div class="waves-block waves-effect prev">
+      <a href="/2019/07/20/statistics-generalization-abaility/" id="post-prev" class="post-nav-link">
+        <div class="tips"><i class="icon icon-angle-left icon-lg icon-pr"></i> Prev</div>
+        <h4 class="title">模型泛化能力</h4>
+      </a>
+    </div>
+  
+
+  
+    <div class="waves-block waves-effect next">
+      <a href="/2019/07/08/oj-cpp-bits/" id="post-next" class="post-nav-link">
+        <div class="tips">Next <i class="icon icon-angle-right icon-lg icon-pl"></i></div>
+        <h4 class="title">oj-cpp-bits</h4>
+      </a>
+    </div>
+  
+</nav>
+
+
+
+    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+</article>
+
+<div id="reward" class="page-modal reward-lay">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <h3 class="reward-title">
+        <i class="icon icon-quote-left"></i>
+        谢谢支持~
+        <i class="icon icon-quote-right"></i>
+    </h3>
+    <div class="reward-content">
+        
+        <div class="reward-code">
+            <img id="rewardCode" src="/img/wechat.jpg" alt="打赏二维码">
+        </div>
+        
+        <label class="reward-toggle">
+            <input id="rewardToggle" type="checkbox" class="reward-toggle-check"
+                data-wechat="/img/wechat.jpg" data-alipay="/img/alipay.jpg">
+            <div class="reward-toggle-ctrol">
+                <span class="reward-toggle-item wechat">微信</span>
+                <span class="reward-toggle-label"></span>
+                <span class="reward-toggle-item alipay">支付宝</span>
+            </div>
+        </label>
+        
+    </div>
+</div>
+
+
+
+</div>
+
+        <footer class="footer">
+    <div class="top">
+        
+<p>
+    <span id="busuanzi_container_site_uv" style='display:none'>
+        站点总访客数：<span id="busuanzi_value_site_uv"></span>
+    </span>
+    <span id="busuanzi_container_site_pv" style='display:none'>
+        站点总访问量：<span id="busuanzi_value_site_pv"></span>
+    </span>
+</p>
+
+
+        <p>
+            
+                <span><a href="/atom.xml" target="_blank" class="rss" title="rss"><i class="icon icon-lg icon-rss"></i></a></span>
+            
+            <span>博客内容遵循 <a rel="license" href="https://creativecommons.org/licenses/by-nc-sa/4.0/deed.zh">知识共享 署名 - 非商业性 - 相同方式共享 4.0 国际协议</a></span>
+        </p>
+    </div>
+    <div class="bottom">
+        <p><span>Suki &copy; 2019</span>
+            <span>
+                
+                Power by <a href="http://hexo.io/" target="_blank">Hexo</a> Theme <a href="https://github.com/yscoder/hexo-theme-indigo" target="_blank">indigo</a>
+            </span>
+        </p>
+    </div>
+</footer>
+
+    </main>
+    <div class="mask" id="mask"></div>
+<a href="javascript:;" id="gotop" class="waves-effect waves-circle waves-light"><span class="icon icon-lg icon-chevron-up"></span></a>
+
+
+
+<div class="global-share" id="globalShare">
+    <ul class="reset share-icons">
+      <li>
+        <a class="weibo share-sns" target="_blank" href="http://service.weibo.com/share/share.php?url=https://sukioosuke.github.io/2019/07/19/statistics-model-choose/&title=《模型选择》 — Suki's Blog&pic=https://sukioosuke.github.io/img/avatar.jpg" data-title="微博">
+          <i class="icon icon-weibo"></i>
+        </a>
+      </li>
+      <li>
+        <a class="weixin share-sns wxFab" href="javascript:;" data-title="微信">
+          <i class="icon icon-weixin"></i>
+        </a>
+      </li>
+      <li>
+        <a class="qq share-sns" target="_blank" href="http://connect.qq.com/widget/shareqq/index.html?url=https://sukioosuke.github.io/2019/07/19/statistics-model-choose/&title=《模型选择》 — Suki's Blog&source=" data-title=" QQ">
+          <i class="icon icon-qq"></i>
+        </a>
+      </li>
+      <li>
+        <a class="facebook share-sns" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https://sukioosuke.github.io/2019/07/19/statistics-model-choose/" data-title=" Facebook">
+          <i class="icon icon-facebook"></i>
+        </a>
+      </li>
+      <li>
+        <a class="twitter share-sns" target="_blank" href="https://twitter.com/intent/tweet?text=《模型选择》 — Suki's Blog&url=https://sukioosuke.github.io/2019/07/19/statistics-model-choose/&via=https://sukioosuke.github.io" data-title=" Twitter">
+          <i class="icon icon-twitter"></i>
+        </a>
+      </li>
+      <li>
+        <a class="google share-sns" target="_blank" href="https://plus.google.com/share?url=https://sukioosuke.github.io/2019/07/19/statistics-model-choose/" data-title=" Google+">
+          <i class="icon icon-google-plus"></i>
+        </a>
+      </li>
+    </ul>
+ </div>
+
+
+<div class="page-modal wx-share" id="wxShare">
+    <a class="close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <img src="//api.qrserver.com/v1/create-qr-code/?data=https://sukioosuke.github.io/2019/07/19/statistics-model-choose/" alt="微信分享二维码">
+</div>
+
+
+
+
+    <script src="//cdn.bootcss.com/node-waves/0.7.4/waves.min.js"></script>
+<script>
+var BLOG = { ROOT: '/', SHARE: true, REWARD: true };
+
+
+</script>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/main.min.js"></script>
+
+
+<div class="search-panel" id="search-panel">
+    <ul class="search-result" id="search-result"></ul>
+</div>
+<template id="search-tpl">
+<li class="item">
+    <a href="{path}" class="waves-block waves-effect">
+        <div class="title ellipsis" title="{title}">{title}</div>
+        <div class="flex-row flex-middle">
+            <div class="tags ellipsis">
+                {tags}
+            </div>
+            <time class="flex-col time">{date}</time>
+        </div>
+    </a>
+</li>
+</template>
+
+<script src="//unpkg.com/hexo-theme-material-indigo@latest/js/search.min.js" async></script>
+
+
+
+<!-- mathjax config similar to math.stackexchange -->
+
+<script type="text/x-mathjax-config">
+MathJax.Hub.Config({
+    tex2jax: {
+        inlineMath: [ ['$','$'], ["\\(","\\)"]  ],
+        processEscapes: true,
+        skipTags: ['script', 'noscript', 'style', 'textarea', 'pre', 'code']
+    }
+});
+
+MathJax.Hub.Queue(function() {
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i=0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+});
+</script>
+
+<script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" async></script>
+
+
+
+
+<script async src="//busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js"></script>
+
+
+
+<script>
+(function() {
+    var OriginTitile = document.title, titleTime;
+    document.addEventListener('visibilitychange', function() {
+        if (document.hidden) {
+            document.title = '我怀疑你在搞黄色';
+            clearTimeout(titleTime);
+        } else {
+            document.title = '但是我没有证据';
+            titleTime = setTimeout(function() {
+                document.title = OriginTitile;
+            },2000);
+        }
+    });
+})();
+</script>
+
+
+
+</body>
+</html>
